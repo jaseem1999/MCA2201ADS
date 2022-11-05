@@ -28,8 +28,5 @@ void main(){
         printf("%d\n", temp -> data);
         temp = temp -> next;
         count++;
-    }
-        //display the list
-        
-        
+    }      
 }
