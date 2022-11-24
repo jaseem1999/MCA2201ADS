@@ -6,7 +6,7 @@ void main(){
         struct node *next;
     };
     struct node *head,*newNode,*temp;
-    int choice,count=0;
+    int choice =0,count=0;
     head = 0;
     while(choice == 0){
         newNode =(struct node*)malloc(sizeof(struct node));
