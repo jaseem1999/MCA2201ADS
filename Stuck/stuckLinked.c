@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+void push(int);
+int pop();
+void display();
 // Structure to create a node with data and the next pointer
 struct Node {
     int data;
     struct Node *next;
-}*top = NULL;
+};
+typedef struct Node node;
+node *top = NULL;
 
 // Push() operation on a  stack
 void push(int value) {
@@ -36,19 +40,21 @@ int pop() {
 void display() {
     // Display the elements of the stack
     if (top == NULL) {
-        printf("\nStack Underflow\n");
+        printf("\nStack is empty\n");
     } else {
         printf("The stack is \n");
         struct Node *temp = top;
+        printf("NULL-->");
         while (temp->next != NULL) {
             printf("%d--->", temp->data);
             temp = temp->next;
         }
-        printf("%d--->NULL\n\n", temp->data);
+        printf("%d\n\n", temp->data);
     }
 }
 
 int main() {
+    int top = NULL;
     int choice, value;
     printf("\nImplementation of Stack using Linked List\n");
     while (1) {
