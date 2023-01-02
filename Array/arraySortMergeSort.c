@@ -1,79 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-void main()
-{
-    int arr1[5], arr2[5], arr[10];//DECLARING ARRAYS
-    int merge;//DECLARING VARIABLE MERGIN MAIN ARRAY AND SECOND ARRAY
-    int i, j;//DECLARING VARIABLES FOR LOOP
-
-    printf("Enter the values of first array: \n");
-    for (i = 0; i < 5; i++)//READING USER INPUT FOR FIRST ARRAY
-    {
-        scanf("%d", &arr1[i]);
-    }
-
-    printf("Enter the values of second array: \n");
-    for (i = 0; i < 5; i++)//READING USER INPUT FOR SECOND ARRAY
-    {
-        scanf("%d", &arr2[i]);
-    }
-    // sorting array 1
-    for (i = 0; i < 5; i++)
-    {
-        for (j = i + 1; j < 5; j++)
-        {
-            if (arr1[i] > arr1[j])
-            {
-                int temp = arr1[i];
-                arr1[i] = arr1[j];
-                arr1[j] = temp;
-            }
-        }
-    }
-    // sorting array 2
-    for (i = 0; i < 5; i++)
-    {
-        for (j = i + 1; j < 5; j++)
-        {
-            if (arr2[i] > arr2[j])
-            {
-                int temp = arr2[i];
-                arr2[i] = arr2[j];
-                arr2[j] = temp;
-            }
-        }
-    }
-
-    // merging array 1 and array 2
-
-    merge = 0;
-    for (i = 0; i < 10; i++)
-    {
-        arr[i] = arr1[i];
-        if (i > 4)
-        {
-            arr[i] = arr2[merge];
-            merge++;
-        }
-    }
-    // displaying the merged array
-    printf("The merged array is: \n");
-    for (i = 0; i < 10; i++)
-    {
-        for (j = i + 1; j < 10; j++)
-        {
-            if (arr[j] < arr[i])
-            {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-    // displaying the merged array
-    for (i = 0; i < 10; i++)
-    {
-        printf("%d ", arr[i]);
-    }
+int main() {
+	int array_1[100],array_2[100];
+	int a1_size,a2_size;
+	int i,j;
+	int temp;
+	int total;
+	int size=0;
+	
+	//ARRAY ONE ELEMET GET
+	printf("Enter how much elemenet in first array : ");
+	scanf("%d",&a1_size);
+	printf("\nEnter %d elemenst\n",a1_size);
+	for(i=0;i<a1_size;i++){
+		printf("\narray_1_[%d] : ",i+1);
+		scanf("%d",&array_1[i]);
+	}
+	
+	
+	//ARRAY TWO ELEMENT GETTING
+	printf("\nEnter how much elemenet in second array : ");
+	scanf("%d",&a2_size);
+	printf("\nEnter %d elemenst\n",a2_size);
+	for(i=0;i<a2_size;i++){
+		printf("\narray_1_[%d] : ",i+1);
+		scanf("%d",&array_2[i]);
+	}
+	
+	//TOTAL ARRAY ELEMENTS
+	total=a1_size+a2_size;
+	
+	//THIRD AARRAY BY JOINING EXISTING TWO ARRAYS
+	for(i=a1_size;i<total;i++){
+		array_1[i]=array_2[size];
+		size=size+1;
+	}
+	
+	//SORTING THIRD ARRAY
+	for(i=0;i<total;i++){
+		for(j=i+1;j<total;j++){
+			if(array_1[i]>array_1[j]){	
+			temp=array_1[j];
+			array_1[j]=array_1[i];
+			array_1[i]=temp;
+			}
+		}
+	}
+	
+	printf("\n...............\n");
+	
+	//PRINTING THIRD ARRAY
+	printf("Array elements are : \n");
+	for(i=0;i<total;i++){
+		printf("Array_[%d] is : %d\n",i,array_1[i]);
+	}
+	
+	return 0;
 }

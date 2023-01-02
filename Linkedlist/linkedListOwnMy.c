@@ -11,7 +11,7 @@ void main(){
     while(choice == 0){
         newNode =(struct node*)malloc(sizeof(struct node));//SIZE DECLARING FOR NEW NODE
         printf("enter data");
-        scanf("%d",&newNode -> data);//ENTRING DATA IN NEW NODE
+        scanf(" %d",&newNode -> data);//ENTRING DATA IN NEW NODE
         newNode -> next =0;//AFTER ADDING THE DATA AND DECLARING NEW NODE NEXT IS SET TO NULL
         if(head ==0){
             head = temp = newNode;//IF HEAD IS NULL THEN NEW NODE IS ADDED TO HEAD
@@ -22,7 +22,7 @@ void main(){
         printf("do you want to continue (0,1)");//ASKING USER TO CONTINUE OR NOT
         scanf("%d",&choice);//READING USER CHOICE
     }
-    temp = head;//AFTER ADDING ALL THE NODES TEMP IS SET TO HEAD
+    temp = head;//AFTER ADDING ALL THE NODES TEM    P IS SET TO HEAD
     while (temp !=0)//DISPALYING ALL THE NODE
     {
         printf("%d\n", temp -> data);//PRINTING DATA OF NODE

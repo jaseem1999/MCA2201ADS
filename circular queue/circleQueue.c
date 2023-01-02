@@ -1,5 +1,8 @@
 #include <stdio.h>
 #define MAX 5
+void insert(int);
+void deletion();
+void display();
 int cqueue_arr[MAX];
 int front = -1;
 int rear = -1;
@@ -22,6 +25,10 @@ void insert(int item)
             rear = rear + 1;
     }
     cqueue_arr[rear] = item;
+    printf("inserted element is %d\n ",cqueue_arr[rear]);
+    printf("rear is %d ", rear);
+    printf("\n");
+    printf("front %d \n",front);
 }
 void deletion()
 {
@@ -31,6 +38,7 @@ void deletion()
         return;
     }
     printf("\nElement deleted from queue is : %d \n", cqueue_arr[front]);
+    
     if (front == rear)
     {
         front = -1;
@@ -43,6 +51,9 @@ void deletion()
         else
             front = front + 1;
     }
+    printf("rear is %d ", rear);
+    printf("\n");
+    printf("front %d \n", front);
 }
 void display()
 {
