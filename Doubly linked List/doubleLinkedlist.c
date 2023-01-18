@@ -7,7 +7,8 @@ struct node{
   struct node *next;
 };
 
-struct node *head = NULL, *end=NULL;
+struct node *head = NULL;
+struct node *end=NULL;
 static int size = 0;
 
 void insert_head(int data){

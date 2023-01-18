@@ -1,0 +1,33 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+void push(int);
+void pop();
+void display();
+int top = -1, arr[10];
+void push(int data){
+    top++;
+    arr[top] = data;
+    printf("\ndata inserted %d \n", arr[top]);
+}
+void pop(){
+    top--;
+    arr[top];
+    printf("\ndata deleted\n");
+}
+void display(){
+    int i;
+    for(i = top; i>=0; i--){
+        printf("--> %d ",arr[i]);
+    }
+}
+
+int main() {
+    push(10);
+    push(30);
+    push(20);
+    push(80);
+    display();
+    pop();
+    display();
+    return 0;
+}

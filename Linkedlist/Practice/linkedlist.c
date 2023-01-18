@@ -23,7 +23,7 @@ void insert(int item){
 void display(){
     struct node *temp = head;
     while(temp != 0){
-        printf("%d \t",temp->data);
+        printf("%d \t", temp->data);
         temp = temp->next;
     }
 }

@@ -1,0 +1,39 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define MAX 5
+int r = -1, f =-1;
+int arr[MAX];
+
+void insert(int data){
+    if(r >= MAX-1 ){
+        r=-1;
+        r++;
+    }else{
+        r++;
+    }
+    f = 0;
+    arr[r] = data;
+    printf("\n Insert success\n");
+}
+void delete(){
+    f++;
+    printf("\n deleted\n");
+}
+void display(){
+    int i;
+    for(i = f; i <= r; i++){
+        printf("%d ,", arr[i]);
+    }
+}
+
+int main() {
+    insert(10);
+    insert(20);
+    insert(30);
+    insert(40);
+    insert(50);
+    
+    display();
+
+    return 0;
+}

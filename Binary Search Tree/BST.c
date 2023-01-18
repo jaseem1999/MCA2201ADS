@@ -1,204 +1,111 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// structure of a node
 struct node
 {
-    int data;
     struct node *left;
     struct node *right;
-};
-
-// globally initialized root pointer
-struct node *root = NULL;
-
-// function prototyping
-struct node *create_node(int);
-void insert(int);
-struct node *delete(struct node *, int);
-int search(int);
-void inorder(struct node *);
-void postorder();
-void preorder();
-struct node *smallest_node(struct node *);
-struct node *largest_node(struct node *);
-int get_data();
-
-int main()
-{
-    int userChoice;
-    int userActive = 'Y';
     int data;
-    struct node *result = NULL;
+};
+struct node *root;
 
-    while (userActive == 'Y' || userActive == 'y')
-    {
-        printf("\n\n------- Binary Search Tree ------\n");
-        printf("\n1. Insert");
-        printf("\n2. Delete");
-        printf("\n3. Search");
-        printf("\n4. Get Larger Node Data");
-        printf("\n5. Get smaller Node data");
-        printf("\n\n-- Traversals --");
-        printf("\n\n6. Inorder ");
-        printf("\n7. Post Order ");
-        printf("\n8. Pre Oder ");
-        printf("\n9. Exit");
-
-        printf("\n\nEnter Your Choice: ");
-        scanf("%d", &userChoice);
-        printf("\n");
-
-        switch (userChoice)
-        {
-        case 1:
-            data = get_data();
-            insert(data);
-            break;
-
-        case 2:
-            data = get_data();
-            root = delete (root, data);
-            break;
-
-        case 3:
-            data = get_data();
-            if (search(data) == 1)
-            {
-                printf("\nData was found!\n");
-            }
-            else
-            {
-                printf("\nData does not found!\n");
-            }
-            break;
-
-        case 4:
-            result = largest_node(root);
-            if (result != NULL)
-            {
-                printf("\nLargest Data: %d\n", result->data);
-            }
-            break;
-
-        case 5:
-            result = smallest_node(root);
-            if (result != NULL)
-            {
-                printf("\nSmallest Data: %d\n", result->data);
-            }
-            break;
-
-        case 6:
-            inorder(root);
-            break;
-
-        case 7:
-            postorder(root);
-            break;
-
-        case 8:
-            preorder(root);
-            break;
-
-        case 9:
-            printf("\n\nProgram was terminated\n");
-            break;
-
-        default:
-            printf("\n\tInvalid Choice\n");
-            break;
-        }
-
-        printf("\n____\nDo you want to continue? ");
-        fflush(stdin);
-        scanf(" %c", &userActive);
-    }
-
-    return 0;
-}
-
-// creates a new node
-struct node *create_node(int data)
+struct node *newNode(value)
 {
-    struct node *new_node = (struct node *)malloc(sizeof(struct node));
-
-    if (new_node == NULL)
-    {
-        printf("\nMemory for new node can't be allocated");
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->left = NULL;
-    new_node->right = NULL;
-
-    return new_node;
+    struct node *newnode = malloc(sizeof(struct node));
+    newnode->data = value;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
 }
 
-// inserts the data in the BST
-void insert(int data)
-{
-    struct node *new_node = create_node(data);
-
-    if (new_node != NULL)
-    {
-        // if the root is empty then make a new node as the root node
-        if (root == NULL)
-        {
-            root = new_node;
-            printf("\n* node having data %d was inserted\n", data);
-            return;
-        }
-
-        struct node *temp = root;
-        struct node *prev = NULL;
-
-        // traverse through the BST to get the correct position for insertion
-        while (temp != NULL)
-        {
-            prev = temp;
-            if (data > temp->data)
-            {
-                temp = temp->right;
-            }
-            else
-            {
-                temp = temp->left;
-            }
-        }
-
-        // found the last node where the new node should insert
-        if (data > prev->data)
-        {
-            prev->right = new_node;
-        }
-        else
-        {
-            prev->left = new_node;
-        }
-
-        printf("\n* node having data %d was inserted\n", data);
-    }
-}
-
-// deletes the given key node from the BST
-struct node *delete(struct node *root, int key)
+struct node *insert(struct node *root, int value)
 {
     if (root == NULL)
     {
-        return root;
+        return newNode(value);
     }
-    if (key < root->data)
+    else if (value == root->data)
     {
-        root->left = delete (root->left, key);
+        printf("Same data can't be stored");
     }
-    else if (key > root->data)
+    else if (value > root->data)
     {
-        root->right = delete (root->right, key);
+        root->right = insert(root->right, value);
     }
+    else if (value < root->data)
+    {
+        root->left = insert(root->left, value);
+    }
+    return root;
+}
+
+// Inorder traversal
+void inorderTraversal(struct node *root)
+{
+    if (root == NULL)
+        return;
+    inorderTraversal(root->left);
+    printf("%d ->", root->data);
+    inorderTraversal(root->right);
+}
+
+// Preorder traversal
+void preorderTraversal(struct node *root)
+{
+    if (root == NULL)
+        return;
+    printf("%d ->", root->data);
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+// Postorder traversal
+void postorderTraversal(struct node *root)
+{
+    if (root == NULL)
+        return;
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    printf("%d ->", root->data);
+}
+
+struct node *search(struct node *root, int key)
+{
+    if (root == NULL)
+        printf("\nNot FOUND!\n");
+    else if (root->data == key)
+        printf("\nFOUND!\n");
     else
     {
+        if (root->data < key)
+            return search(root->right, key);
+        return search(root->left, key);
+    }
+}
+
+struct node *minValueNode(struct node *node)
+{
+    struct node *current = node;
+
+    /* loop down to find the leftmost leaf */
+    while (current && current->left != NULL)
+        current = current->left;
+
+    return current;
+}
+
+struct node *deleteNode(struct node *root, int key)
+{
+    if (root == NULL)
+        return root;
+
+    if (key < root->data)
+        root->left = deleteNode(root->left, key);
+    else if (key > root->data)
+        root->right = deleteNode(root->right, key);
+    else
+    {
+        // node with only one child or no child
         if (root->left == NULL)
         {
             struct node *temp = root->right;
@@ -211,99 +118,71 @@ struct node *delete(struct node *root, int key)
             free(root);
             return temp;
         }
-        struct node *temp = smallest_node(root->right);
+        // node with two children:
+        // Get the inorder successor
+        // (smallest in the right subtree)
+        struct node *temp = minValueNode(root->right);
+
+        // Copy the inorder
+        // successor's content to this node
         root->data = temp->data;
-        root->right = delete (root->right, temp->data);
+
+        // Delete the inorder successor
+        root->right = deleteNode(root->right, temp->data);
     }
     return root;
 }
 
-// search the given key node in BST
-int search(int key)
+int main()
 {
-    struct node *temp = root;
-
-    while (temp != NULL)
+    int opt;
+    int value, searchv, key;
+    do
     {
-        if (key == temp->data)
+        printf("\n1)Create Root Node \n2)Insert Node\n3)Search\n");
+        printf("4)inorderTraversal \n5)preorderTraversal \n6)postorderTraversal \n7)Delete \n8)Quiet \n");
+        printf("Choose Option :: ");
+        scanf("%d", &opt);
+        switch (opt)
         {
-            return 1;
+        case 1:
+            printf("\nEnter a number : ");
+            scanf("%d", &value);
+            root = newNode(value);
+            break;
+        case 2:
+            printf("\nEnter a number : ");
+            scanf("%d", &value);
+            root = insert(root, value);
+            break;
+        case 3:
+            printf("\nEnter a number : ");
+            scanf("%d", &searchv);
+            search(root, searchv);
+            break;
+        case 4:
+            printf("\n..................................\n");
+            inorderTraversal(root);
+            printf("\n..................................\n");
+            break;
+        case 5:
+            printf("\n..................................\n");
+            preorderTraversal(root);
+            printf("\n..................................\n");
+            break;
+        case 6:
+            printf("\n..................................\n");
+            postorderTraversal(root);
+            printf("\n..................................\n");
+            break;
+        case 7:
+            printf("\nEnter a number to be deleted : ");
+            scanf("%d", &key);
+            deleteNode(root, key);
+            break;
+        defualt:
+            printf("Invalid option!");
         }
-        else if (key > temp->data)
-        {
-            temp = temp->right;
-        }
-        else
-        {
-            temp = temp->left;
-        }
-    }
+    } while (opt != 8);
     return 0;
-}
-
-// finds the node with the smallest value in BST
-struct node *smallest_node(struct node *root)
-{
-    struct node *curr = root;
-    while (curr != NULL && curr->left != NULL)
-    {
-        curr = curr->left;
-    }
-    return curr;
-}
-
-// finds the node with the largest value in BST
-struct node *largest_node(struct node *root)
-{
-    struct node *curr = root;
-    while (curr != NULL && curr->right != NULL)
-    {
-        curr = curr->right;
-    }
-    return curr;
-}
-
-// inorder traversal of the BST
-void inorder(struct node *root)
-{
-    if (root == NULL)
-    {
-        return;
-    }
-    inorder(root->left);
-    printf("%d ", root->data);
-    inorder(root->right);
-}
-
-// preorder traversal of the BST
-void preorder(struct node *root)
-{
-    if (root == NULL)
-    {
-        return;
-    }
-    printf("%d ", root->data);
-    preorder(root->left);
-    preorder(root->right);
-}
-
-// postorder travsersal of the BST
-void postorder(struct node *root)
-{
-    if (root == NULL)
-    {
-        return;
-    }
-    postorder(root->left);
-    postorder(root->right);
-    printf("%d ", root->data);
-}
-
-// getting data from the user
-int get_data()
-{
-    int data;
-    printf("\nEnter Data: ");
-    scanf("%d", &data);
-    return data;
 }
