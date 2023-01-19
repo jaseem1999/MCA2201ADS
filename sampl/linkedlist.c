@@ -27,6 +27,12 @@ void insert(int item)
         temp->next = newNode;
     }
 }
+void delete(){
+    struct node *temp = head;
+   
+    head = head->next;
+    free(temp);
+}
 void display()
 {
     struct node *temp = head;
@@ -41,7 +47,7 @@ int main()
     int ch, data;
     do
     {
-        printf("1 = insert \n 2 = dispaly \n 3 = exit ");
+        printf("\n1 = insert \n 2 = dispaly \n 3 = exit\n 4 = delete\n");
         scanf("%d", &ch);
         if (ch == 1)
         {
@@ -54,6 +60,12 @@ int main()
             printf("Dispaly\n");
             display();
         }
-    } while (ch != 3);
+        if (ch == 3)
+        {
+            printf("delete\n");
+            delete();
+        }
+
+    } while (ch != 4);
     return 0;
 }
