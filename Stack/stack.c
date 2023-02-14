@@ -7,10 +7,10 @@ int main()
 {
     if (top = -1)
     {
-        printf("your stuck is empty\n");
+        printf("your stack is empty\n");
         push();  
         display();
-        printf("\ndo you want to delete element from stuck\n");
+        printf("\ndo you want to delete element from stack\n");
         printf("1 = yes\n2 = no\n");
         scanf("%d", &d);
         if (d == 1)
@@ -23,7 +23,7 @@ int main()
     }
     else
     {
-        printf("your stuck is full\n");
+        printf("your stack is full\n");
     }
     return 0;
 }
