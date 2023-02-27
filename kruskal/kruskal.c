@@ -7,7 +7,7 @@ int find(int i)
 {
     while (parent[i] != i)
         i = parent[i];
-    return (i);
+    return i;
 }
 // Does union of i and j. It returns
 // false if i and j are already in same
@@ -43,8 +43,7 @@ void kruskalMST(int cost[][V])
             }
         }
         setUnion(a, b);
-        printf("Edge %d:(%d, %d) cost:%d \n",
-               edge_count++, a, b, min);
+        printf("Edge %d:(%d, %d) cost:%d \n",edge_count++, a, b, min);
         mincost += min;
     }
     printf("\n Minimum cost= %d \n", mincost);

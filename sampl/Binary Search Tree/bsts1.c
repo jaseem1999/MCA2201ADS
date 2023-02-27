@@ -40,12 +40,19 @@ void inorderTraversal(struct node *root){
     
 }
 
-preorderTraversal(struct node *root){
+void preorderTraversal(struct node *root){
     if (root == NULL)
         return;
     printf("%d-->",root->data);
     preorderTraversal(root->left);
     preorderTraversal(root->right);
+}
+void postorderTraversal(struct node *root){
+    if (root == NULL)
+        return;
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    printf("%d-->",root->data);
 }
 void search(struct node *root, int key){
     if (root == NULL)
@@ -121,6 +128,11 @@ struct node *deleteNode(struct node *root, int key)
                 case 5:
                     printf("\n..................................\n");
                     preorderTraversal(root);
+                    printf("\n..................................\n");
+                    break;
+                case 6:
+                    printf("\n..................................\n");
+                    postorderTraversal(root);
                     printf("\n..................................\n");
                     break;
                 case 7:

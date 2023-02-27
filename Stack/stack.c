@@ -5,7 +5,7 @@ void pop();
 void display();
 int main()
 {
-    if (top = -1)
+    if (top == -1)
     {
         printf("your stack is empty\n");
         push();  
